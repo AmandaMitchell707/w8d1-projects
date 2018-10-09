@@ -22,7 +22,10 @@ export const receiveErrors = (errors) => ({
 // thunk action creators:
 export const login = user => dispatch => (
   SessionAPIUtil.login(user)
-  .then(user => dispatch(receiveCurrentUser(user)))
+  .then(
+    res => dispatch(receiveCurrentUser(res)),
+    error => dispatch(receiveErrors(error.responseJSON))
+  )
 );
 
 export const logout = () => dispatch => (
@@ -32,5 +35,8 @@ export const logout = () => dispatch => (
 
 export const signup = user => dispatch => (
   SessionAPIUtil.signup(user)
-  .then(user => dispatch(receiveCurrentUser(user)))
+  .then(
+    res => dispatch(receiveCurrentUser(res)),
+    error => dispatch(receiveErrors(error.responseJSON))
+  )
 );
